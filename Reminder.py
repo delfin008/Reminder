@@ -3,6 +3,9 @@ from tkinter import simpledialog as sd
 from tkinter import messagebox as mb
 import time
 import datetime
+import pygame
+
+
 
 def set_reminder():
     global r_time
@@ -14,7 +17,7 @@ def set_reminder():
             minute = int(minute)
             now_time = datetime.datetime.now()
             print(now_time)
-            r_time = now_time.replace(hour=hour, minute=minute)
+            r_time = now_time.replace(hour=hour, minute=minute, second=0)
             print(r_time)
             mb.showinfo(title="Успех", message=f"Напоминание установлено на {hour}:{minute}")
             check_time()
@@ -25,11 +28,15 @@ def check_time():
     global r_time
     if r_time:
         now = time.time()
-        print(now)
         if now >= r_time.timestamp():
-            print("Играет музыка")
+            play_music()
             r_time = None
-        window.after(1000, check_time)
+        window.after(5000, check_time)
+
+def play_music():
+    pygame.mixer.init()
+    pygame.mixer_music.load("Krasivay.mp3")
+    pygame.mixer_music.play()
 
 
 r_time = None
