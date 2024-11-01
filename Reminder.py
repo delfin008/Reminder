@@ -9,6 +9,7 @@ def set_reminder():
         hour, minute = time_reminder.split(":")
         hour = int(hour)
         minute = int(minute)
+        now_time = datetime.datetime.now()
 
 
 window = Tk()
