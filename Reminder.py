@@ -7,14 +7,18 @@ import datetime
 def set_reminder():
     time_reminder = sd.askstring(title="Укажите время напоминания", prompt="Введите время (чч:мм)")
     if time_reminder:
-        hour, minute = time_reminder.split(":")
-        hour = int(hour)
-        minute = int(minute)
-        now_time = datetime.datetime.now()
-        print(now_time)
-        r_time = now_time.replace(hour=hour, minute=minute)
-        print(r_time)
-        mb.showinfo(title="Успех", message=f"Напоминание установлено на {hour}:{minute}")
+        try:
+            hour, minute = time_reminder.split(":")
+            hour = int(hour)
+            minute = int(minute)
+            now_time = datetime.datetime.now()
+            print(now_time)
+            r_time = now_time.replace(hour=hour, minute=minute)
+            print(r_time)
+            mb.showinfo(title="Успех", message=f"Напоминание установлено на {hour}:{minute}")
+        except ValueError:
+            mb.showerror(title="Ошибка", message=f"Неправильно указано время")
+
 
 
 window = Tk()
