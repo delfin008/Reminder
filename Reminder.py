@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import simpledialog as sd
+from tkinter import messagebox as mb
 import time
 import datetime
 
@@ -10,6 +11,10 @@ def set_reminder():
         hour = int(hour)
         minute = int(minute)
         now_time = datetime.datetime.now()
+        print(now_time)
+        r_time = now_time.replace(hour=hour, minute=minute)
+        print(r_time)
+        mb.showinfo(title="Успех", message=f"Напоминание установлено на {hour}:{minute}")
 
 
 window = Tk()
