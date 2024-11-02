@@ -1,4 +1,3 @@
-from cProfile import label
 from tkinter import *
 from tkinter import simpledialog as sd
 from tkinter import messagebox as mb
@@ -18,6 +17,7 @@ def set_reminder():
             minute = int(minute)
             now_time = datetime.datetime.now()
             r_time = now_time.replace(hour=hour, minute=minute, second=0)
+            r_time = r_time.timestamp()
             mb.showinfo(title="Успех", message=f"Напоминание установлено на {hour}:{minute}")
             check_time()
         except ValueError:
@@ -27,10 +27,11 @@ def check_time():
     global r_time
     if r_time:
         now = time.time()
-        if now >= r_time.timestamp():
+        if now >= r_time:
             play_music()
             r_time = None
         window.after(1000, check_time)
+
 
 def play_music():
     global music
@@ -47,7 +48,7 @@ def stop_music():
 
 
 music = False
-r_time = None
+r_time =1.0
 
 
 window = Tk()
@@ -56,8 +57,8 @@ window.geometry(f"400x200+{window.winfo_screenwidth()//2-250}+{window.winfo_scre
 #установка окна в центре экрана монитора
 
 
-l = Label(window, text="--Нажмите на кнопку и установите напоминание на любое время--")
-l.pack(pady=10)
+lab = Label(window, text="--Нажмите на кнопку и установите напоминание на любое время--")
+lab.pack(pady=10)
 btn = Button(window,text="Установить напоминание", command=set_reminder)
 btn.pack(pady=10)
 btn_stop_music = Button(window,text="Остановить музыку", command=stop_music)
